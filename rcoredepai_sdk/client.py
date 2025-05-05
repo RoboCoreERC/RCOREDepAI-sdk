@@ -15,8 +15,9 @@ CONTRACT_ADDR = to_checksum_address(raw_contract)
 class BrainClient:
     def __init__(self, storage):
         self.w3       = Web3(Web3.HTTPProvider(RPC_URL))
-        if not self.w3.is_connected():
-            raise ConnectionError(f"Cannot connect to {RPC_URL}")
+        # Only error if an RPC_URL was provided but we failed to connect
+        if RPC_URL and not self.w3.is_connected():
+            raise ConnectionError(f"Cannot connect to {RPC_URL!r}")
         with open(ABI_PATH) as f:
             abi = f.read()
         self.contract = self.w3.eth.contract(address=CONTRACT_ADDR, abi=abi)
