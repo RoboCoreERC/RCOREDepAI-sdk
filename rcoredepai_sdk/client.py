@@ -11,6 +11,7 @@ RPC_URL = os.getenv("RPC_URL", "")
 # fallback to a zero‐address if no CONTRACT_ADDRESS is defined
 raw_contract = os.getenv("CONTRACT_ADDRESS") or "0x0000000000000000000000000000000000000000"
 CONTRACT_ADDR = to_checksum_address(raw_contract)
+ABI_PATH      = os.path.join(os.path.dirname(__file__), "..", "abi.json")
 
 class BrainClient:
     def __init__(self, storage):
